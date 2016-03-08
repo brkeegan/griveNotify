@@ -1,0 +1,4 @@
+The griveLogNotify script is a wrapper for grive. The script checks if grive is currently running and checks for a web connection on startup.
+If successful, the script will notify the user when sync has started and will notify when Finished.
+This is achieved by checking the log file.
+Currebntly the log file is passed in as command line arg.

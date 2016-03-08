@@ -1,9 +1,20 @@
 #!/bin/bash
 
-LOG_FILE="griveSyncLog-CB.log"
-SERVICE="grive^"
+#LOG_FILE="griveSyncLog-CB.log"
+SERVICE="grive"
 
-if ps ax | grep -v grep | grep $SERVICE > /dev/null; then 
+function show_usage {
+   echo "Usage: $0 griveSyncLogName.log"
+   exit 1
+}
+
+if [ $# -ne 1 ]; then
+   show_usage
+else # There are two arguments
+   LOG_FILE=$1
+fi
+
+if ps ax | grep -v grep | grep -w $SERVICE > /dev/null; then 
    #echo "$SERVICE running, everything is fine"
    notify-send Grive "Grive already running";
 else 

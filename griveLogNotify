@@ -34,9 +34,9 @@ else
       while read -r line; do
          if [ "$line" = "Finished!" ]; then
             notify-send Grive "Sync Complete";
-            sleep 5
-            RMV_COUNT=diff -u $LOG_FILE  $LOG_FILE-1 | grep -v $LOG_FILE | grep -v ^@ | grep ^- | wc -l
-            ADD_COUNT=diff -u $LOG_FILE  $LOG_FILE-1 | grep -v $LOG_FILE | grep -v ^@ | grep ^+ | wc -l
+            sleep 10 
+            RMV_COUNT=$(diff -u $LOG_FILE  $LOG_FILE-1 | grep -v $LOG_FILE | grep -v ^@ | grep ^- | wc -l)
+            ADD_COUNT=$(diff -u $LOG_FILE  $LOG_FILE-1 | grep -v $LOG_FILE | grep -v ^@ | grep ^+ | wc -l)
             notify-send Grive "$RMV_COUNT files removed, $ADD_COUNT added";
          fi
       done < $LOG_FILE

@@ -25,6 +25,7 @@ else
 
       if [[ -e $LOG_FILE ]]; then
          mv $LOG_FILE $LOG_FILE-1
+      fi
       
       notify-send Grive "Starting Sync";
 

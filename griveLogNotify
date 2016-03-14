@@ -17,7 +17,7 @@ fi
 
 if ps ax | grep -v grep | grep -w $SERVICE > /dev/null; then 
    #echo "$SERVICE running, everything is fine"
-   notify-send Grive "Grive already running";
+   notify-send "Grive" "Grive already running" --urgency=critical;
 else 
    #echo "$SERVICE is not running"
    if ping -q -c 1 -W 1 google.com >/dev/null; then
@@ -27,23 +27,23 @@ else
          mv $LOG_FILE $LOG_FILE-1
       fi
       
-      notify-send Grive "Starting Sync";
+      notify-send "Grive" "Starting Sync" --urgency=critical;
 
       grive -l $LOG_FILE
 
       while read -r line; do
          if [ "$line" = "Finished!" ]; then
-            notify-send Grive "Sync Complete";
+            notify-send "Grive" "Sync Complete" --urgency=critical;
             sleep 10 
             RMV_COUNT=$(diff -u $LOG_FILE  $LOG_FILE-1 | grep -v $LOG_FILE | grep -v ^@ | grep ^- | wc -l)
             ADD_COUNT=$(diff -u $LOG_FILE  $LOG_FILE-1 | grep -v $LOG_FILE | grep -v ^@ | grep ^+ | wc -l)
-            notify-send Grive "$RMV_COUNT files removed, $ADD_COUNT added";
+            notify-send "Grive" "$RMV_COUNT files removed, $ADD_COUNT added" --urgency=critical;
          fi
       done < $LOG_FILE
 
    else
       #echo "The network is down"
-      notify-send Grive "No Network. Aborting Sync";
+      notify-send "Grive" "No Network. Aborting Sync" --urgency=critical;
       exit
    fi 
 fi
